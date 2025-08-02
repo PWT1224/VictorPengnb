@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>欢迎来到我的博客</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        accent: '#8B5CF6',
+                        dark: '#1F2937',
+                        light: '#F9FAFB'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .transition-custom {
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+        }
+    </style>
+</head>
+<body class="bg-light min-h-screen flex flex-col">
+    <!-- 导航栏 -->
+    <header class="bg-white shadow-md sticky top-0 z-50 transition-custom">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center space-x-2">
+                <i class="fa fa-pencil-square-o text-primary text-2xl"></i>
+                <h1 class="text-2xl font-bold text-dark text-shadow">我的博客</h1>
+            </a>
+            <nav class="hidden md:flex space-x-6">
+                <a href="/" class="text-dark hover:text-primary font-medium transition-custom flex items-center">
+                    <i class="fa fa-home mr-1"></i> 首页
+                </a>
+                <a href="#" class="text-dark hover:text-primary font-medium transition-custom flex items-center">
+                    <i class="fa fa-user mr-1"></i> 关于
+                </a>
+                <a href="#" class="text-dark hover:text-primary font-medium transition-custom flex items-center">
+                    <i class="fa fa-envelope mr-1"></i> 联系
+                </a>
+            </nav>
+            <button class="md:hidden text-dark text-xl">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- 主要内容 -->
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <!-- 欢迎横幅 -->
+        <section class="mb-12 bg-gradient-to-r from-primary to-accent rounded-xl shadow-lg overflow-hidden transition-custom hover:shadow-xl">
+            <div class="p-6 md:p-10 text-white">
+                <h1 class="text-3xl md:text-4xl font-bold mb-4 text-shadow">欢迎光临我的博客</h1>
+                <p class="text-lg opacity-90 max-w-2xl">分享我的知识、经验和见解，希望能给你带来启发和帮助。</p>
+            </div>
+        </section>
+
+        <!-- 博客文章列表 -->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            {% for post in posts %}
+            <article class="bg-white rounded-lg shadow-md overflow-hidden transition-custom hover:shadow-xl hover:-translate-y-1 group">
+                <div class="p-6">
+                    <h2 class="text-xl font-bold text-dark mb-3 group-hover:text-primary transition-custom">
+                        <a href="/post/{{ post.slug }}">{{ post.title }}</a>
+                    </h2>
+                    <p class="text-gray-600 line-clamp-3 mb-4">{{ post.body|truncatewords:20 }}</p>
+                    <a href="/post/{{ post.slug }}" class="inline-flex items-center text-primary font-medium hover:text-accent transition-custom">
+                        阅读更多 <i class="fa fa-arrow-right ml-2 group-hover:ml-3 transition-custom"></i>
+                    </a>
+                </div>
+            </article>
+            {% endfor %}
+        </section>
+
+        <!-- 当前时间 -->
+        <section class="bg-white rounded-lg shadow-md p-6 text-center">
+            <h3 class="text-lg font-medium text-gray-700">现在时刻：{{ now }}</h3>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-8 mt-auto">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p>&copy; {{ now|date:"Y" }} 我的博客. 保留所有权利.</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-white hover:text-primary transition-custom"><i class="fa fa-github text-xl"></i></a>
+                    <a href="#" class="text-white hover:text-primary transition-custom"><i class="fa fa-twitter text-xl"></i></a>
+                    <a href="#" class="text-white hover:text-primary transition-custom"><i class="fa fa-linkedin text-xl"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

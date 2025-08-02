@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.title }} - 我的博客</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        accent: '#8B5CF6',
+                        dark: '#1F2937',
+                        light: '#F9FAFB'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .transition-custom {
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .prose-custom {
+                max-width: 100%;
+            }
+            .prose-custom p {
+                margin-bottom: 1.5rem;
+                line-height: 1.8;
+            }
+        }
+    </style>
+</head>
+<body class="bg-light min-h-screen flex flex-col">
+    <!-- 导航栏 -->
+    <header class="bg-white shadow-md sticky top-0 z-50 transition-custom">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center space-x-2">
+                <i class="fa fa-pencil-square-o text-primary text-2xl"></i>
+                <h1 class="text-2xl font-bold text-dark text-shadow">我的博客</h1>
+            </a>
+            <nav class="hidden md:flex space-x-6">
+                <a href="/" class="text-dark hover:text-primary font-medium transition-custom flex items-center">
+                    <i class="fa fa-home mr-1"></i> 首页
+                </a>
+                <a href="#" class="text-dark hover:text-primary font-medium transition-custom flex items-center">
+                    <i class="fa fa-user mr-1"></i> 关于
+                </a>
+                <a href="#" class="text-dark hover:text-primary font-medium transition-custom flex items-center">
+                    <i class="fa fa-envelope mr-1"></i> 联系
+                </a>
+            </nav>
+            <button class="md:hidden text-dark text-xl">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- 主要内容 -->
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <!-- 文章内容 -->
+        <article class="bg-white rounded-lg shadow-md overflow-hidden transition-custom hover:shadow-lg max-w-3xl mx-auto">
+            <div class="p-6 md:p-8">
+                <h1 class="text-2xl md:text-3xl font-bold text-dark mb-6 text-shadow">{{ post.title }}</h1>
+                <div class="prose-custom text-gray-700">
+                    {{ post.body|linebreaks }}
+                </div>
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <a href="/" class="inline-flex items-center text-primary font-medium hover:text-accent transition-custom bg-gray-50 hover:bg-gray-100 px-4 py-2 rounded-lg">
+                        <i class="fa fa-arrow-left mr-2"></i> 回首页
+                    </a>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-8 mt-auto">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p>&copy; {{ now|date:"Y" }} 我的博客. 保留所有权利.</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-white hover:text-primary transition-custom"><i class="fa fa-github text-xl"></i></a>
+                    <a href="#" class="text-white hover:text-primary transition-custom"><i class="fa fa-twitter text-xl"></i></a>
+                    <a href="#" class="text-white hover:text-primary transition-custom"><i class="fa fa-linkedin text-xl"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
